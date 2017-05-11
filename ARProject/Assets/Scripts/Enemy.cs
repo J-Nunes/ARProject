@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
    
-   // Transform position_enemy;
+    Transform position_enemy;
     public Transform position_attack;
 
     public NavMeshAgent agent;
@@ -14,10 +14,11 @@ public class Enemy : MonoBehaviour
 
     GameManager g_manager;
     public float radius;
+    int time_to_change_position_attack = 10;
 
     void Awake()
     {
-        //position_enemy = GetComponent<Transform>();
+        position_enemy = GetComponent<Transform>();
         //position_attack = GameObject.Find("Sphere").GetComponent<Transform>();
     }
 
@@ -31,7 +32,7 @@ public class Enemy : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-     
+       
     }
 
     void CalcRandomPos()
@@ -46,7 +47,20 @@ public class Enemy : MonoBehaviour
         agent.SetDestination(destination);
     }
 
-   
 
-  
+   /* IEnumerator Reload()
+    {
+       
+
+        /*yield return new WaitForSeconds(time_to_change_position_attack);
+
+        Debug.Log("Chnage Position");
+
+       
+    }*/
+
+
+
+
+
 }
