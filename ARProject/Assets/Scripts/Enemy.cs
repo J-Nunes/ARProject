@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
 
     GameManager g_manager;
     public float radius;
-    int time_to_change_position_attack = 10;
+    public float time_to_change_position_attack = 0.5f;
 
     void Awake()
     {
@@ -32,7 +32,10 @@ public class Enemy : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-       
+        if (Vector3.Distance(position_enemy.position, destination) <= 0.2f)
+        {
+            Debug.Log("Arrived");
+        }
     }
 
     void CalcRandomPos()
@@ -45,19 +48,9 @@ public class Enemy : MonoBehaviour
         destination.z += random.y;
 
         agent.SetDestination(destination);
+        Debug.Log("Destination");
+        Debug.Log(destination);
     }
-
-
-   /* IEnumerator Reload()
-    {
-       
-
-        /*yield return new WaitForSeconds(time_to_change_position_attack);
-
-        Debug.Log("Chnage Position");
-
-       
-    }*/
 
 
 
