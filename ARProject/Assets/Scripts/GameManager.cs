@@ -14,17 +14,17 @@ public class GameManager : MonoBehaviour
     public int min_soliders_Capacity = 5;
     private int amount_enemies_on_level = 0;
 
-    int soldier_respawn = 0;
+    int soldier_respawn;
 
     //List of Soldiers
-    List<GameObject> soldiers = new List<GameObject>();
+    public List<GameObject> soldiers = new List<GameObject>();
     public GameObject[] people;
 
     //Attack Positions
-    public Transform attack_pos1_respawn1;
-    public Transform attack_po2_respawn1;
-    public Transform attack_pos1_respawn2;
-    public Transform attack_po2_respawn2;
+    public Transform attack_position_1;
+    public Transform attack_position_2;
+    public Transform attack_hostage_1;
+    public Transform attack_hostage_2;
 
     //Bunker
     public Transform bunker_position;
@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
                 are_all_soldiers_spawned = false;
                 current_level++;
                 max_soldiers_capacity += 5;
+                min_soliders_Capacity += 3;
                 Debug.Log(current_level);
                 amount_enemies_on_level = Random.Range(min_soliders_Capacity, max_soldiers_capacity);
                 Debug.Log("Amount Enemies");
@@ -117,52 +118,38 @@ public class GameManager : MonoBehaviour
         {
             Enemy sold_1 = soldier_agent.GetComponent<Enemy>();
 
-            /*   if (soldier_respawn == 1)
-               {
-                   int value_pos = Random.Range(1, 10);
+            int value_type_attack = Random.Range(1, 10);
 
-                   if (value_pos <= 5)
-                   {
-                       sold_1.position_attack = attack_pos1_respawn1;
-                   }
-                   else
-                   {
-                       sold_1.position_attack = attack_po2_respawn1;
-                   }
-               }
-               else
-               {
-                   int value_pos = Random.Range(1, 10);
-
-                   if (value_pos <= 5)
-                   {
-                       sold_1.position_attack = attack_pos1_respawn2;
-                   }
-                   else
-                   {
-                       sold_1.position_attack = attack_po2_respawn2;
-                   }
-               }*/
-
-            int value_pos = Random.Range(1, 20);
-
-            if (value_pos <= 5)
+            //Attack player
+            if (value_type_attack <= 5)
             {
-                sold_1.position_attack = attack_pos1_respawn1;
-            }
-            else if (value_pos <= 10 && value_pos > 5)
-            {
-                sold_1.position_attack = attack_po2_respawn1;
-            }
-            else if (value_pos <= 15 && value_pos > 10)
-            {
-                sold_1.position_attack = attack_po2_respawn1;
-            }
-            else if (value_pos <= 20 && value_pos > 15)
-            {
-                sold_1.position_attack = attack_po2_respawn1;
-            }
+                int attack_pos = Random.Range(1, 10);
 
+                if (attack_pos <= 5)
+                {
+                    sold_1.position_attack = attack_position_1;
+                }
+                else
+                {
+                    sold_1.position_attack = attack_position_2;
+                }
+            }
+            //Attack hostages
+            else if (value_type_attack <= 10 && value_type_attack > 5)
+            {
+                int attack_pos = Random.Range(1, 10);
+
+                if (attack_pos <= 5)
+                {
+                    sold_1.position_attack = attack_hostage_1;
+                }
+                else
+                {
+                    sold_1.position_attack = attack_hostage_2;
+                }
+
+              
+            }     
         }
 
         //Go to bunker
@@ -183,6 +170,16 @@ public class GameManager : MonoBehaviour
         soldiers.Remove(go);
         Debug.Log("Remove");
         Debug.Log(soldiers.Count);
+    }
+
+    public int Get_Amount_Soldiers()
+    {
+        return soldiers.Count;
+    }
+
+    public List<GameObject> Get_List()
+    {
+        return soldiers;
     }
 
 }

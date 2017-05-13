@@ -9,6 +9,10 @@ public class Hostage_Script : MonoBehaviour
     public NavMeshAgent agent;
     public Vector3 destination;
 
+    public bool have_killer = false;
+
+    public Animator animator;
+
     // Use this for initialization
     void Start()
     {
@@ -27,6 +31,7 @@ public class Hostage_Script : MonoBehaviour
         if(col.gameObject.name == "Bunker")
         {
             Debug.Log("Hostage die");
+            have_killer = false;
             Destroy(gameObject);
             GameObject del = gameObject;
             game_m.Remove_From_List(del);
