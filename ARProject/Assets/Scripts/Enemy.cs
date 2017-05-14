@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public Transform position_attack;
 
     public NavMeshAgent agent;
-    Vector3 destination;
+    public Vector3 destination;
 
    // GameManager g_manager;
     public float radius;
@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
 
     //Player
     Transform player;
+    public bool kill_player = false;
 
     void Awake()
     {
@@ -43,9 +44,17 @@ public class Enemy : MonoBehaviour
 
         if (Vector3.Distance(position_enemy.position, destination) <= 0.5f)
         {
-            Debug.Log("Look to die");
+           // Debug.Log("Look to die");
             animator.SetBool("Run", false);
-            animator.SetBool("Shoot", true);
+
+            if (kill_player)
+            {
+                animator.SetBool("Shoot Player", true);
+            }
+            else
+            {
+                animator.SetBool("Shoot", true);
+            }
             attack_hostages = false;
 
             Vector3 target_pos = player.position;
@@ -71,15 +80,14 @@ public class Enemy : MonoBehaviour
 
                  }
 
-
-
+        
                  }
              }*/
 
         }
     }
 
-    void CalcRandomPos()
+    public void CalcRandomPos()
     {
         Vector2 random = Random.insideUnitCircle * radius;
         

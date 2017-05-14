@@ -72,5 +72,10 @@ public class Scope_Rifle : MonoBehaviour
         mainCamera.fieldOfView = scopedFOV;
     }
 
+    public bool Is_Scoped()
+    {
+        return is_scope;
+    }
+
   
 }

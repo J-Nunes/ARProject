@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager g_manager;
+    public EnemyManager enemy_manager;
     public Transform Respawn_1;
     public Transform Respawn_2;
 
@@ -133,6 +134,8 @@ public class GameManager : MonoBehaviour
                 {
                     sold_1.position_attack = attack_position_2;
                 }
+
+                sold_1.kill_player = true;
             }
             //Attack hostages
             else if (value_type_attack <= 10 && value_type_attack > 5)
@@ -148,8 +151,11 @@ public class GameManager : MonoBehaviour
                     sold_1.position_attack = attack_hostage_2;
                 }
 
-              
-            }     
+                sold_1.kill_player = false;
+
+            }
+            enemy_manager.Add_Enemy(soldier_agent);
+        
         }
 
         //Go to bunker

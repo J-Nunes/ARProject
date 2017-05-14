@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class Target : MonoBehaviour {
 
     GameManager game_m;
+    EnemyManager enemy_manager;
     public NavMeshAgent agent;
     public float health = 30f;
 
@@ -13,6 +14,7 @@ public class Target : MonoBehaviour {
     void Start()
     {
         game_m = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        enemy_manager = GameObject.Find("Game_Manager").GetComponent<EnemyManager>();
     }
 
     public void TakeDamage(float amount)
@@ -47,6 +49,7 @@ public class Target : MonoBehaviour {
         Destroy(gameObject);
         GameObject del = gameObject;
         game_m.Remove_From_List(del);
+        enemy_manager.enemies.Remove(del);
     }
 
 }
