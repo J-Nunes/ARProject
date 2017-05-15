@@ -8,6 +8,7 @@ public class Hostage_Script : MonoBehaviour
     GameManager game_m;
     public NavMeshAgent agent;
     public Vector3 destination;
+    public EnemyManager enemy_manager;
 
     public bool have_killer = false;
 
@@ -35,6 +36,8 @@ public class Hostage_Script : MonoBehaviour
             Destroy(gameObject);
             GameObject del = gameObject;
             game_m.Remove_From_List(del);
+            enemy_manager.hostages.Remove(del);
+
         }
     }
 }

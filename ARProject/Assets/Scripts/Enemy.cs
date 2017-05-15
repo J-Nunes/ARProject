@@ -23,6 +23,9 @@ public class Enemy : MonoBehaviour
     Transform player;
     public bool kill_player = false;
 
+    public Hostage_Script hostage_target;
+    public EnemyManager enemy_manager;
+
     void Awake()
     {
         position_enemy = GetComponent<Transform>();
@@ -50,16 +53,34 @@ public class Enemy : MonoBehaviour
             if (kill_player)
             {
                 animator.SetBool("Shoot Player", true);
+
+                //Orient Soldier to the Player
+                Vector3 target_pos = player.position;
+                target_pos.y = position_enemy.position.y;
+                position_enemy.LookAt(target_pos);
             }
             else
             {
-                animator.SetBool("Shoot", true);
-            }
-            attack_hostages = false;
+                
 
-            Vector3 target_pos = player.position;
-            target_pos.y = position_enemy.position.y;
-            position_enemy.LookAt(target_pos);
+               /* if (hostage_target.GetComponent<Target>().health > 0)
+                {
+                    animator.SetBool("Shoot", true);
+
+                    //Orient Soldier to hostage
+                    Vector3 target_pos = hostage_target.GetComponent<Transform>().position;
+                    target_pos.y = position_enemy.position.y;
+                    position_enemy.LookAt(target_pos);
+                    Debug.Log("Look to die");
+                }
+                else
+                {
+                    kill_player = true;
+                    animator.SetBool("Shoot", false);
+                }*/
+            }
+
+         
             /* for (int i = 0; i < g_manager.soldiers.cou; i++)
              {
                  if (g_manager.soldiers[i].gameObject.GetComponent<Hostage_Script>() != null)
@@ -102,8 +123,11 @@ public class Enemy : MonoBehaviour
        
     }
 
-
-
-
+    public void Assign_Hostage()
+    {
+        Enemy enemy = this;
+        //Go to enemy manager and assign to this enemy a target
+        enemy_manager.Assign_Target_To_Enemy(enemy);
+    }
 
 }

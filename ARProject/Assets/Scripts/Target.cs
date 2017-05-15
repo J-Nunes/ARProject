@@ -36,12 +36,16 @@ public class Target : MonoBehaviour {
             //Is an enemy
             Enemy soldier = gameObject.GetComponent<Enemy>();
             soldier.animator.SetBool("Die", true);
+            GameObject enemy = gameObject;
+            enemy_manager.enemies.Remove(enemy);
         }
         else
         {
             //Is a hostage
             Hostage_Script hostage = gameObject.GetComponent<Hostage_Script>();
             hostage.animator.SetBool("Hostage_Die", true);
+            GameObject host = gameObject;
+            enemy_manager.hostages.Remove(host);
         }
 
         yield return new WaitForSeconds(2.5f);
@@ -49,7 +53,7 @@ public class Target : MonoBehaviour {
         Destroy(gameObject);
         GameObject del = gameObject;
         game_m.Remove_From_List(del);
-        enemy_manager.enemies.Remove(del);
+           
     }
 
 }

@@ -15,8 +15,6 @@ public class GameManager : MonoBehaviour
     public int min_soliders_Capacity = 5;
     private int amount_enemies_on_level = 0;
 
-    int soldier_respawn;
-
     //List of Soldiers
     public List<GameObject> soldiers = new List<GameObject>();
     public GameObject[] people;
@@ -87,19 +85,18 @@ public class GameManager : MonoBehaviour
 
     void Choose_Respawn()
     {
-
         int value_respawn = Random.Range(1, 10);
 
 
         if (value_respawn <= 5)
         {
             position_soldier = Respawn_2.position;
-            soldier_respawn = 2;
+     
         }
         else
         {
             position_soldier = Respawn_1.position;
-            soldier_respawn = 1;
+       
         }
     }
 
@@ -150,10 +147,12 @@ public class GameManager : MonoBehaviour
                 {
                     sold_1.position_attack = attack_hostage_2;
                 }
-
+                //Assign Hostage
+                //sold_1.Assign_Hostage();
                 sold_1.kill_player = false;
 
             }
+
             enemy_manager.Add_Enemy(soldier_agent);
         
         }
@@ -163,11 +162,10 @@ public class GameManager : MonoBehaviour
         {
             Hostage_Script sold_1 = soldier_agent.GetComponent<Hostage_Script>();
             sold_1.destination = bunker_position.position;
+            enemy_manager.Add_Hostage(soldier_agent);
         }
 
         soldiers.Add(soldier_agent);
-
-        soldier_respawn = 0;
         Debug.Log(soldiers.Count);
     }
 
