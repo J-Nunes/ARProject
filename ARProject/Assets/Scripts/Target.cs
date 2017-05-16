@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Target : MonoBehaviour {
 
-    GameManager game_m;
+    SpawnManager game_m;
     EnemyManager enemy_manager;
     public NavMeshAgent agent;
     public float health = 30f;
@@ -13,7 +13,7 @@ public class Target : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        game_m = GameObject.Find("GameManager").GetComponent<GameManager>();
+        game_m = GameObject.Find("GameManager").GetComponent<SpawnManager>();
         enemy_manager = GameObject.Find("GameManager").GetComponent<EnemyManager>();
     }
 
@@ -50,7 +50,7 @@ public class Target : MonoBehaviour {
 
         Destroy(gameObject);
         GameObject del = gameObject;
-        game_m.Remove_From_List(del);
+        game_m.RemoveUnit(del);
            
     }
 

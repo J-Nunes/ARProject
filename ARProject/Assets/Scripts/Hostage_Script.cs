@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Hostage_Script : MonoBehaviour
 {
-    GameManager game_m;
+    SpawnManager game_m;
     public NavMeshAgent agent;
     public Vector3 destination;
     public EnemyManager enemy_manager;
@@ -17,7 +17,7 @@ public class Hostage_Script : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        game_m = GameObject.Find("GameManager").GetComponent<GameManager>();
+        game_m = GameObject.Find("GameManager").GetComponent<SpawnManager>();
         enemy_manager = game_m.GetComponent<EnemyManager>();
         agent.SetDestination(destination);
     }
@@ -36,7 +36,7 @@ public class Hostage_Script : MonoBehaviour
             
             GameObject del = gameObject;  
             Destroy(gameObject);
-            game_m.Remove_From_List(del);
+            game_m.RemoveUnit(del);
 
         }
 

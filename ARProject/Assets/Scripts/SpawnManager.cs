@@ -14,6 +14,7 @@ public class SpawnManager : MonoBehaviour
     bool wave_starting;
     bool spawning;
     float timer;
+    int current_subwave;
 
     public GameObject soldier;
     public GameObject hostage;
@@ -24,11 +25,14 @@ public class SpawnManager : MonoBehaviour
         wave_starting = true;
         spawning = true;
         current_wave = waves[0];
+        timer = 0.0f;
+        current_subwave = 0;
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        Debug.Log(current_wave.units.Count);
         if (spawning)
         {
             if (wave_starting)
@@ -38,15 +42,43 @@ public class SpawnManager : MonoBehaviour
 
             else
             {
-
+                if(timer > current_wave.delay_time)
+                {
+                    SubWave();                    
+                    timer = 0.0f;
+                }
+                else
+                {
+                    timer += Time.deltaTime;
+                }
             }
         }
-
+        
         else if(current_wave.units.Count <= 0)
         {
-
+            Debug.Log("HOLAAA");
+            current_wave = waves[waves.IndexOf(current_wave) + 1];
+            spawning = true;
+            wave_starting = true;
+            current_subwave = 0;
         }
 	}
+
+    void SubWave()
+    {
+        if(current_subwave < current_wave.sub_waves)
+        {
+            for(int i = 0; i < current_wave.units_number; i++)
+            {
+                int type = Random.Range(0, 3);
+                Spawn(type);
+            }
+            current_subwave++;
+        }
+
+        else
+            spawning = false;
+    }
 
     void InitialSpawn()
     {
@@ -75,6 +107,8 @@ public class SpawnManager : MonoBehaviour
 
                 int attack_id = Random.Range(0, attack_pos.Count);
                 new_unit.GetComponent<Enemy>().position_attack = attack_pos[attack_id];
+                new_unit.GetComponent<Enemy>().kill_player = true;
+
                 current_wave.units.Add(new_unit);
                 break;
 
@@ -84,6 +118,8 @@ public class SpawnManager : MonoBehaviour
 
                 int suicide_id = Random.Range(0, suicide_pos.Count);
                 new_unit.GetComponent<Enemy>().position_attack = attack_pos[suicide_id];
+                new_unit.GetComponent<Enemy>().kill_player = false;
+
                 current_wave.units.Add(new_unit);
                 break;
 
