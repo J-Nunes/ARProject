@@ -17,7 +17,8 @@ public class Hostage_Script : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        game_m = GameObject.Find("Game_Manager").GetComponent<GameManager>();
+        game_m = GameObject.Find("GameManager").GetComponent<GameManager>();
+        enemy_manager = game_m.GetComponent<EnemyManager>();
         agent.SetDestination(destination);
     }
 
