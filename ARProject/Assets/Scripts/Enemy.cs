@@ -24,11 +24,14 @@ public class Enemy : MonoBehaviour
     Transform player;
     public bool kill_player = false;
 
+    //Bomb
+    Explosion explosion_go;
+
     void Awake()
     {
         position_enemy = GetComponent<Transform>();
         player = GameObject.Find("Camera").GetComponent<Transform>();
-
+        explosion_go = GameObject.Find("Bomb").GetComponent<Explosion>();
     }
 
     // Use this for initialization
@@ -54,8 +57,18 @@ public class Enemy : MonoBehaviour
                 //Orient Soldier to the Player
                 Vector3 target_pos = player.position;
                 target_pos.y = position_enemy.position.y;
-                position_enemy.LookAt(target_pos);
+                position_enemy.LookAt(target_pos); 
+        }
+
+        if (explosion_go.activate_bomb)
+        {
             
+            if (Vector3.Distance(position_enemy.position, explosion_go.transform.position) <= 0.5f)
+            {
+                Debug.Log("Soldier Bomb");
+                Target enemy_target = gameObject.GetComponent<Target>();
+                StartCoroutine(enemy_target.Die());
+            }
         }
 
     }

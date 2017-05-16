@@ -10,6 +10,9 @@ public class Power_Ups : MonoBehaviour {
     bool slow_motion_used = false;
     bool infinite_ammo_used = false;
     bool increase_life_used = false;
+    public bool bomb_used = false;
+
+    public GameObject explosion;
 
     // Use this for initialization
     void Start () {
@@ -19,19 +22,21 @@ public class Power_Ups : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if(player_kills == 4 && infinite_ammo_used == false)
+        if (player_kills == 1 && bomb_used == false)
+        {
+            Explosion bomb = explosion.GetComponent<Explosion>();
+            bomb.col.enabled = true;
+            bomb.render_mesh.enabled = true;
+            
+        }
+
+        else if (player_kills == 4 && infinite_ammo_used == false)
         {
             Debug.Log("Ammo Power Activated");
             StartCoroutine(AmmoPowerUp());
             infinite_ammo_used = true;
-        }
 
-        /*else if (player_kills == 7 && increase_life_used == false)
-        {
-            Debug.Log("Ammo Power Activated");
-            StartCoroutine(AmmoPowerUp());
-            increase_life_used = true;     
-        }*/
+        }
 
         else if (player_kills == 10 && slow_motion_used == false)
         {
@@ -53,6 +58,7 @@ public class Power_Ups : MonoBehaviour {
         player_kills = 0;
         slow_motion_used = false;
         infinite_ammo_used = false;
+        bomb_used = false;
         Debug.Log("Reset Kills");
         Debug.Log(player_kills);
     }
