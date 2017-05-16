@@ -4,34 +4,50 @@ using UnityEngine;
 
 public class Explosion : MonoBehaviour {
 
-    Transform pos;
-    public bool explosion = false;
-    int vel = 40;
+    public bool activate_bomb = false;
+    public Renderer render_mesh;
+    public Collider col;
+    public ParticleSystem explsion_effect;
+    
 
 	// Use this for initialization
 	void Start () {
-	}
+
+        render_mesh = GetComponent<Renderer>();
+        col = GetComponent<Collider>();
+        
+    }
 	
 	// Update is called once per frame
 	void Update () {
 		
-        if(explosion && transform.position.y > 0)
+        if(activate_bomb)
+        {    
+            StartCoroutine(Explode());        
+        }
+        else
         {
-            Vector3 new_pos = transform.position;
-            new_pos.y -= vel * Time.deltaTime;
-            transform.position = new_pos;
-
+            render_mesh.enabled = false;
+            col.enabled = false;
         }
 	}
 
-
-    private void OnTriggerEnter(Collider col)
+    IEnumerator Explode()
     {
 
-        if (col.gameObject.name == "Power_Up")
-        {
-            Debug.Log("Hostage die power up");
-        }
+        render_mesh.enabled = true;
+        explsion_effect.Play();
+        yield return new WaitForSeconds(0.1f);
+
+        activate_bomb = false;
+        render_mesh.enabled = false;
+        col.enabled = false;
+
+    }
+
+    public void Activate_Explosion()
+    {
+        activate_bomb = true;
     }
 
 

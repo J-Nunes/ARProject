@@ -14,18 +14,31 @@ public class Hostage_Script : MonoBehaviour
 
     public Animator animator;
 
+    //Bomb
+    Explosion explosion_go;
+
     // Use this for initialization
     void Start()
     {
         game_m = GameObject.Find("GameManager").GetComponent<SpawnManager>();
         enemy_manager = game_m.GetComponent<EnemyManager>();
+        explosion_go = GameObject.Find("Bomb").GetComponent<Explosion>();
         agent.SetDestination(destination);
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (explosion_go.activate_bomb)
+        {
 
+            if (Vector3.Distance(transform.position, explosion_go.transform.position) <= 0.6f)
+            {
+                Debug.Log("Hostage Bomb");
+                Target hostage_target = gameObject.GetComponent<Target>();
+                StartCoroutine(hostage_target.Die());
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider col)

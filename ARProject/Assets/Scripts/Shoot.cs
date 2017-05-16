@@ -78,19 +78,27 @@ public class Shoot : MonoBehaviour
             Debug.Log(hit.transform.name);
 
             Target target = hit.transform.GetComponent<Target>();
+            Explosion bomb = hit.transform.GetComponent<Explosion>();
+            Enemy enemy = hit.transform.GetComponent<Enemy>();
 
             if (target != null)
             {
                 target.TakeDamage(damage);
             }
 
-            Enemy enemy = hit.transform.GetComponent<Enemy>();
+            if (bomb != null)
+            {
+                Debug.Log("Bomb");
+                bomb.Activate_Explosion();
+                powerup_go.bomb_used = true;
+            }
 
             if (enemy != null)
             {
                 powerup_go.Increase_kills();
             }
-            else
+
+            if (enemy == null && enemy == null && bomb == null) 
             {
                 //Restart kills
                 powerup_go.Reset_Kills();
