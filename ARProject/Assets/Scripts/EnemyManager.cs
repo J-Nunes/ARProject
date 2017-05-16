@@ -6,7 +6,6 @@ public class EnemyManager : MonoBehaviour
 {
 
     public List<GameObject> enemies = new List<GameObject>();
-    public List<GameObject> hostages = new List<GameObject>();
     Enemy enemy_go;
 
     // Use this for initialization
@@ -35,53 +34,12 @@ public class EnemyManager : MonoBehaviour
                 {
                     Debug.Log("Same_pos");
                     enemy_go.CalcRandomPos();
-
                 }
             }
         }
-        else
-        {
-            Hostage_Script hostage_go;
-            for (int i = 0; i < hostages.Count; i++)
-            {
-                hostage_go = hostages[i].GetComponent<Hostage_Script>();
-                if (hostage_go.have_killer == false)
-                {
-                    enemy_go.hostage_target = hostage_go;
-                    hostage_go.have_killer = true;
-                    break;
-                }
-            }
-
-            if (enemy_go.hostage_target == null)
-            {
-                enemy_go.kill_player = true;
-            }
-        }
     }
 
-    public void Add_Hostage(GameObject new_hostage)
-    {
-        hostages.Add(new_hostage);
-    }
+  
 
-    public void Assign_Target_To_Enemy( Enemy killer)
-    {
-        Hostage_Script hostage_go;
-        for (int i = 0; i < hostages.Count; i++)
-        {
-            hostage_go = hostages[i].GetComponent<Hostage_Script>();
-            if(hostage_go.have_killer == false)
-            {
-                killer.hostage_target = hostage_go;
-                hostage_go.have_killer = true;
-                break;
-            }
-        }
-
-        if(killer.hostage_target == null)
-        {
-            killer.kill_player = true;
-        }
-    }
+    
 }

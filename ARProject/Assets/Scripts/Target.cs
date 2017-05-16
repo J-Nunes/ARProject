@@ -26,7 +26,7 @@ public class Target : MonoBehaviour {
         }
     }
 
-    IEnumerator Die()
+    public IEnumerator Die()
     {
         agent.Stop();
 
@@ -44,8 +44,6 @@ public class Target : MonoBehaviour {
             //Is a hostage
             Hostage_Script hostage = gameObject.GetComponent<Hostage_Script>();
             hostage.animator.SetBool("Hostage_Die", true);
-            GameObject host = gameObject;
-            enemy_manager.hostages.Remove(host);
         }
 
         yield return new WaitForSeconds(2.5f);

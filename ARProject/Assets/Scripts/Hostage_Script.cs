@@ -32,12 +32,18 @@ public class Hostage_Script : MonoBehaviour
         if(col.gameObject.name == "Bunker")
         {
             Debug.Log("Hostage die");
-            have_killer = false;
+            
+            GameObject del = gameObject;  
             Destroy(gameObject);
-            GameObject del = gameObject;
             game_m.Remove_From_List(del);
-            enemy_manager.hostages.Remove(del);
 
+        }
+
+        if (col.gameObject.name == "Power_Up")
+        {
+            Debug.Log("Hostage die");
+
+        
         }
     }
 }

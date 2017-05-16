@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
     public Transform attack_position_1;
     public Transform attack_position_2;
     public Transform attack_hostage_1;
-    public Transform attack_hostage_2;
+    public Transform attack_position_3;
 
     //Bunker
     public Transform bunker_position;
@@ -73,6 +73,7 @@ public class GameManager : MonoBehaviour
                 current_level++;
                 max_soldiers_capacity += 5;
                 min_soliders_Capacity += 3;
+                Debug.Log("Current Level");
                 Debug.Log(current_level);
                 amount_enemies_on_level = Random.Range(min_soliders_Capacity, max_soldiers_capacity);
                 Debug.Log("Amount Enemies");
@@ -127,34 +128,25 @@ public class GameManager : MonoBehaviour
                 {
                     sold_1.position_attack = attack_position_1;
                 }
-                else
+                else if(attack_pos > 5 && attack_pos <=10)
                 {
                     sold_1.position_attack = attack_position_2;
+                }
+                else if (attack_pos > 10 && attack_pos <= 15)
+                {
+                    sold_1.position_attack = attack_position_3;
                 }
 
                 sold_1.kill_player = true;
             }
-            //Attack hostages
+            //Suicide Soldier
             else if (value_type_attack <= 10 && value_type_attack > 5)
-            {
-                int attack_pos = Random.Range(1, 10);
-
-                if (attack_pos <= 5)
-                {
-                    sold_1.position_attack = attack_hostage_1;
-                }
-                else
-                {
-                    sold_1.position_attack = attack_hostage_2;
-                }
-                //Assign Hostage
-                //sold_1.Assign_Hostage();
+            {  
+                sold_1.position_attack = attack_hostage_1;
                 sold_1.kill_player = false;
-
             }
 
-            enemy_manager.Add_Enemy(soldier_agent);
-        
+            enemy_manager.Add_Enemy(soldier_agent);        
         }
 
         //Go to bunker
@@ -162,7 +154,6 @@ public class GameManager : MonoBehaviour
         {
             Hostage_Script sold_1 = soldier_agent.GetComponent<Hostage_Script>();
             sold_1.destination = bunker_position.position;
-            enemy_manager.Add_Hostage(soldier_agent);
         }
 
         soldiers.Add(soldier_agent);

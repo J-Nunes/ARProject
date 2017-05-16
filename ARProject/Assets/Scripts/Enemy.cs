@@ -5,15 +5,16 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-   
+
     Transform position_enemy;
     public Transform position_attack;
 
     public NavMeshAgent agent;
     public Vector3 destination;
 
-   // GameManager g_manager;
-    public float radius;
+    // GameManager g_manager;
+    public float radius_attack_pos;
+    public float radius_explosion_pos;
     public float time_to_change_position_attack = 0.5f;
 
     public bool attack_hostages = true;
@@ -23,9 +24,6 @@ public class Enemy : MonoBehaviour
     Transform player;
     public bool kill_player = false;
 
-    public Hostage_Script hostage_target;
-    public EnemyManager enemy_manager;
-
     void Awake()
     {
         position_enemy = GetComponent<Transform>();
@@ -34,100 +32,68 @@ public class Enemy : MonoBehaviour
     }
 
     // Use this for initialization
-    void Start ()
-    {      
+    void Start()
+    {
         //After the respawn of the character, this goes to the attack position
         CalcRandomPos();
         Debug.Log(player.position);
     }
-	
-	// Update is called once per frame
-	void Update ()
-    {
 
+    // Update is called once per frame
+    void Update()
+    {
+        //When the soldier arrive to the attack position
         if (Vector3.Distance(position_enemy.position, destination) <= 0.5f)
         {
-           // Debug.Log("Look to die");
+            // Debug.Log("Look to die");
             animator.SetBool("Run", false);
 
-            if (kill_player)
-            {
+            
                 animator.SetBool("Shoot Player", true);
 
                 //Orient Soldier to the Player
                 Vector3 target_pos = player.position;
                 target_pos.y = position_enemy.position.y;
                 position_enemy.LookAt(target_pos);
-            }
-            else
-            {
-                
-
-               /* if (hostage_target.GetComponent<Target>().health > 0)
-                {
-                    animator.SetBool("Shoot", true);
-
-                    //Orient Soldier to hostage
-                    Vector3 target_pos = hostage_target.GetComponent<Transform>().position;
-                    target_pos.y = position_enemy.position.y;
-                    position_enemy.LookAt(target_pos);
-                    Debug.Log("Look to die");
-                }
-                else
-                {
-                    kill_player = true;
-                    animator.SetBool("Shoot", false);
-                }*/
-            }
-
-         
-            /* for (int i = 0; i < g_manager.soldiers.cou; i++)
-             {
-                 if (g_manager.soldiers[i].gameObject.GetComponent<Hostage_Script>() != null)
-                 {
-                     Hostage_Script hostage = g_manager.soldiers[i].gameObject.GetComponent<Hostage_Script>();
-
-                 if (hostage.have_killer == false)
-                 {
-
-                     hostage.have_killer = true;
-                     //Look to the hostage
-                     Vector3 target_pos = g_manager.soldiers[i].gameObject.GetComponent<Transform>().position;
-                     target_pos.y = position_enemy.position.y;
-                     position_enemy.LookAt(target_pos);
-                     Debug.Log("Look to die");
-                     break;
-
-
-                 }
-
-        
-                 }
-             }*/
-
+            
         }
+
     }
 
     public void CalcRandomPos()
     {
-        Vector2 random = Random.insideUnitCircle * radius;
-        
+        Vector2 random;
+        if (kill_player)
+        {
+            random = Random.insideUnitCircle * radius_attack_pos;
+        }
+        else
+        {
+            random = Random.insideUnitCircle * radius_explosion_pos;
+        }
+
         destination = position_attack.position;
         destination.x += random.x;
         destination.z += random.y;
 
         animator.SetBool("Run", true);
- 
 
         agent.SetDestination(destination);
-       
+
+        if (kill_player == false)
+        {
+            StartCoroutine(Enemy_Explode());
+        }
     }
 
-    public void Assign_Hostage()
+    IEnumerator Enemy_Explode()
     {
-        Enemy enemy = this;
-        //Go to enemy manager and assign to this enemy a target
-        enemy_manager.Assign_Target_To_Enemy(enemy);
-    }
+        int time = Random.Range(3, 8); ;
+        yield return new WaitForSeconds(time);
 
+        //Die
+        Target die = gameObject.GetComponent<Target>();
+        StartCoroutine(die.Die());
+
+    }
 }
