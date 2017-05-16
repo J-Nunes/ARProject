@@ -6,9 +6,10 @@ public class Power_Ups : MonoBehaviour {
 
     public int player_kills;
     public Time_Manager time_manager;
-    public Weapon weapon_go;
+    public Shoot weapon_go;
     bool slow_motion_used = false;
     bool infinite_ammo_used = false;
+    bool increase_life_used = false;
 
     // Use this for initialization
     void Start () {
@@ -18,17 +19,24 @@ public class Power_Ups : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-        if(player_kills == 3 && slow_motion_used == false)
-        {
-            time_manager.SlowMotion();
-            slow_motion_used = true;
-        }
-
-        else if (player_kills == 6 && infinite_ammo_used == false)
+        if(player_kills == 4 && infinite_ammo_used == false)
         {
             Debug.Log("Ammo Power Activated");
             StartCoroutine(AmmoPowerUp());
-            infinite_ammo_used = true;     
+            infinite_ammo_used = true;
+        }
+
+        /*else if (player_kills == 7 && increase_life_used == false)
+        {
+            Debug.Log("Ammo Power Activated");
+            StartCoroutine(AmmoPowerUp());
+            increase_life_used = true;     
+        }*/
+
+        else if (player_kills == 10 && slow_motion_used == false)
+        {
+            time_manager.SlowMotion();
+            slow_motion_used = true;
         }
 
     }
@@ -54,7 +62,6 @@ public class Power_Ups : MonoBehaviour {
         weapon_go.InfiniteAmmo();
         yield return new WaitForSeconds(10f);
         weapon_go.NormalAmmo();
-        Reset_Kills();
         Debug.Log("Deactivate Ammo Power");
     }
 }

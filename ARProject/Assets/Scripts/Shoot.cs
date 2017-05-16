@@ -15,6 +15,7 @@ public class Shoot : MonoBehaviour
 
     public Time_Manager time_manager;
     public Camera cam;
+    public Power_Ups powerup_go;
 
     bool is_infinite_ammo = false;
 
@@ -56,6 +57,7 @@ public class Shoot : MonoBehaviour
 
     void Shot()
     {
+
         if (is_infinite_ammo == false)
         {
             currentAmmo--;
@@ -76,6 +78,16 @@ public class Shoot : MonoBehaviour
             }
 
             Enemy enemy = hit.transform.GetComponent<Enemy>();
+
+            if (enemy != null)
+            {
+                powerup_go.Increase_kills();
+            }
+            else
+            {
+                //Restart kills
+                powerup_go.Reset_Kills();
+            }
         }
 
 
