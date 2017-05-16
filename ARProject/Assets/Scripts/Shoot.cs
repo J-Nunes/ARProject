@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shoot : MonoBehaviour
 {
@@ -40,7 +41,6 @@ public class Shoot : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && currentAmmo > 0)
         {
             Shot();
-
         }
 
     }
@@ -48,11 +48,18 @@ public class Shoot : MonoBehaviour
     IEnumerator Reload()
     {
         is_reloading = true;
+        Color tmp = gameObject.GetComponent<Image>().color;
+        tmp.g = 0.8f;
+        tmp.a = 0.3f;
+        gameObject.GetComponent<Image>().color = tmp;
 
         yield return new WaitForSeconds(reloadTime);
 
         currentAmmo = maxAmmo;
         is_reloading = false;
+        tmp.g = 0.0f;
+        tmp.a = 0.8f;
+        gameObject.GetComponent<Image>().color = tmp;
     }
 
     void Shot()
