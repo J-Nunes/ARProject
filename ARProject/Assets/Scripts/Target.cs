@@ -13,8 +13,8 @@ public class Target : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        game_m = GameObject.Find("Game_Manager").GetComponent<GameManager>();
-        enemy_manager = GameObject.Find("Game_Manager").GetComponent<EnemyManager>();
+        game_m = GameObject.Find("GameManager").GetComponent<GameManager>();
+        enemy_manager = GameObject.Find("GameManager").GetComponent<EnemyManager>();
     }
 
     public void TakeDamage(float amount)

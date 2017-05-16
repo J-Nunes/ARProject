@@ -43,7 +43,7 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         //When the soldier arrive to the attack position
-        if (Vector3.Distance(position_enemy.position, destination) <= 0.5f)
+        if (Vector3.Distance(position_enemy.position, destination) <= 0.05f)
         {
             // Debug.Log("Look to die");
             animator.SetBool("Run", false);
