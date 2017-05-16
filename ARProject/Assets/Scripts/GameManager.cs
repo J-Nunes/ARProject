@@ -5,8 +5,6 @@ using UnityEngine.AI;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager g_manager;
-    public EnemyManager enemy_manager;
     public Transform Respawn_1;
     public Transform Respawn_2;
 
@@ -33,12 +31,6 @@ public class GameManager : MonoBehaviour
     bool are_all_soldiers_spawned = false;
     int current_level = 0;
     public int max_levels = 5;
-
-
-    void Awake()
-    {
-        g_manager = this;
-    }
 
     // Use this for initialization
     void Start()
@@ -144,9 +136,7 @@ public class GameManager : MonoBehaviour
             {  
                 sold_1.position_attack = attack_hostage_1;
                 sold_1.kill_player = false;
-            }
-
-            enemy_manager.Add_Enemy(soldier_agent);        
+            }    
         }
 
         //Go to bunker
