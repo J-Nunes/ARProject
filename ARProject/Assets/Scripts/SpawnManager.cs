@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    public GameManager game_manager;
+
     public List<Transform> attack_pos;
     public List<Transform> suicide_pos;
     public List<Transform> spawners;
@@ -22,17 +24,12 @@ public class SpawnManager : MonoBehaviour
     // Use this for initialization
     void Start ()
     {
-        wave_starting = true;
-        spawning = true;
-        current_wave = waves[0];
-        timer = 0.0f;
-        current_subwave = 0;
+        StartWaves();  
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
-        Debug.Log(current_wave.units.Count);
         if (spawning)
         {
             if (wave_starting)
@@ -56,13 +53,27 @@ public class SpawnManager : MonoBehaviour
         
         else if(current_wave.units.Count <= 0)
         {
-            Debug.Log("HOLAAA");
-            current_wave = waves[waves.IndexOf(current_wave) + 1];
-            spawning = true;
-            wave_starting = true;
-            current_subwave = 0;
+            int next_wave = waves.IndexOf(current_wave) + 1;
+            if (next_wave < waves.Count)
+            {
+                current_wave = waves[next_wave];
+                spawning = true;
+                wave_starting = true;
+                current_subwave = 0;
+            }
+            else
+                game_manager.game = false;
         }
 	}
+
+    public void StartWaves()
+    {
+        wave_starting = true;
+        spawning = true;
+        current_wave = waves[0];
+        timer = 0.0f;
+        current_subwave = 0;
+    }
 
     void SubWave()
     {
