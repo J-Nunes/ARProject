@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 public class Shoot : MonoBehaviour
 {
-
+    public float live = 100;
     public float damage = 10f;
     public float range = 400f;
 
     public int maxAmmo = 10;
     private int currentAmmo;
-    public float reloadTime = 1f;
+    public float reloadTime = 2f;
     public bool is_reloading = false;
 
     public Time_Manager time_manager;

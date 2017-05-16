@@ -21,14 +21,16 @@ public class Enemy : MonoBehaviour
     public Animator animator;
 
     //Player
-    Transform player;
+    Transform camera;
+    Shoot player;
     public bool kill_player = false;
+    public float damage = 1;
 
     void Awake()
     {
         position_enemy = GetComponent<Transform>();
-        player = GameObject.Find("Camera").GetComponent<Transform>();
-
+        camera = GameObject.Find("Camera").GetComponent<Transform>();
+        player = GameObject.Find("Crosshair").GetComponent<Shoot>();
     }
 
     // Use this for initialization
@@ -36,7 +38,6 @@ public class Enemy : MonoBehaviour
     {
         //After the respawn of the character, this goes to the attack position
         CalcRandomPos();
-        Debug.Log(player.position);
     }
 
     // Update is called once per frame
@@ -45,17 +46,14 @@ public class Enemy : MonoBehaviour
         //When the soldier arrive to the attack position
         if (Vector3.Distance(position_enemy.position, destination) <= 0.05f)
         {
-            // Debug.Log("Look to die");
             animator.SetBool("Run", false);
 
-            
-                animator.SetBool("Shoot Player", true);
-
-                //Orient Soldier to the Player
-                Vector3 target_pos = player.position;
-                target_pos.y = position_enemy.position.y;
-                position_enemy.LookAt(target_pos);
-            
+            animator.SetBool("Shoot Player", true);
+            //Orient Soldier to the Player
+            Vector3 target_pos = camera.position;
+            target_pos.y = position_enemy.position.y;
+            position_enemy.LookAt(target_pos);
+            player.live -= damage * Time.deltaTime;
         }
 
     }

@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         spawn_manager.enabled = false;
+        game = true;
     }
 
     // Update is called once per frame
