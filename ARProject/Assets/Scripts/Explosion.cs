@@ -9,10 +9,12 @@ public class Explosion : MonoBehaviour {
     public Collider col;
     public ParticleSystem explsion_effect;
     public SpawnManager spawn_manager;
-    
 
-	// Use this for initialization
-	void Start ()
+    public AudioClip explosion;
+    public AudioSource audio_source;
+
+    // Use this for initialization
+    void Start ()
     {
         
     }
@@ -22,7 +24,8 @@ public class Explosion : MonoBehaviour {
     {
 		
         if(activate_bomb)
-        {    
+        {
+            audio_source.PlayOneShot(explosion);
             StartCoroutine(Explode());        
         }
 

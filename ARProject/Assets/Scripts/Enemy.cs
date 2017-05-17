@@ -29,6 +29,8 @@ public class Enemy : MonoBehaviour
     //Bomb
     Explosion explosion_go;
     public ParticleSystem explosion_effect;
+    public AudioClip explosion;
+    public AudioSource audio_source;
 
     public SpawnManager spawner;
 
@@ -135,6 +137,7 @@ public class Enemy : MonoBehaviour
 
         //Die
         Target die = gameObject.GetComponent<Target>();
+        audio_source.PlayOneShot(explosion);
         explosion_effect.transform.position = transform.position;
         explosion_effect.Play();
         StartCoroutine(die.Die());
