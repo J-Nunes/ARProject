@@ -42,7 +42,7 @@ public class Target : MonoBehaviour {
             hostage.animator.SetBool("Hostage_Die", true);
         }
 
-        yield return new WaitForSeconds(2.5f);
+        yield return new WaitForSeconds(1f);
 
         //Check if is an enemy or a hostage
         if (gameObject.GetComponent<Enemy>() != null)

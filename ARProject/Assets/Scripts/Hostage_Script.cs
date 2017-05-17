@@ -53,12 +53,5 @@ public class Hostage_Script : MonoBehaviour
             game_m.RemoveUnit(del);
 
         }
-
-        if (col.gameObject.name == "Power_Up")
-        {
-            Debug.Log("Hostage die");
-
-        
-        }
     }
 }
