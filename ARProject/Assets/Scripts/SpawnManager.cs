@@ -149,6 +149,7 @@ public class SpawnManager : MonoBehaviour
 
                 new_unit.GetComponent<Hostage_Script>().destination = bunker.position;
                 current_wave.units.Add(new_unit);
+                current_wave.hostages.Add(new_unit);
                 break;
         }        
     }
@@ -156,5 +157,15 @@ public class SpawnManager : MonoBehaviour
     public void RemoveUnit(GameObject unit_to_remove)
     {
         current_wave.units.Remove(unit_to_remove);
+    }
+
+    public List<GameObject> Get_Hostages_Units()
+    {
+        return current_wave.hostages;
+    }
+
+    public void Del_Hostages_Units(GameObject del)
+    {
+         current_wave.hostages.Remove(del);
     }
 }

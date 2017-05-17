@@ -29,12 +29,15 @@ public class Enemy : MonoBehaviour
     //Bomb
     Explosion explosion_go;
 
+    public SpawnManager spawner;
+
     void Awake()
     {
         position_enemy = GetComponent<Transform>();
         camera = GameObject.Find("Camera").GetComponent<Transform>();
         player = GameObject.Find("Crosshair").GetComponent<Shoot>();
         explosion_go = GameObject.Find("Bomb").GetComponent<Explosion>();
+        spawner = GameObject.Find("GameManager").GetComponent<SpawnManager>();
     }
 
     // Use this for initialization
@@ -101,8 +104,22 @@ public class Enemy : MonoBehaviour
 
     IEnumerator Enemy_Explode()
     {
-        int time = Random.Range(3, 8); ;
+        int time = Random.Range(3, 7); 
+
         yield return new WaitForSeconds(time);
+
+        List<GameObject> hostages_list = spawner.Get_Hostages_Units();
+        if (hostages_list.Count > 0)
+        {
+            for (int i = 0; i < hostages_list.Count; i++)
+            {
+                if (Vector3.Distance(position_enemy.position, hostages_list[i].transform.position) <= 0.35f)
+                {
+                    Target target = hostages_list[i].GetComponent<Target>();
+                    target.health = 0;
+                }
+            }
+        }
 
         //Die
         Target die = gameObject.GetComponent<Target>();

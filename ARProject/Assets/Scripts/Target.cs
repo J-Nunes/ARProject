@@ -6,7 +6,6 @@ using UnityEngine.AI;
 public class Target : MonoBehaviour {
 
     SpawnManager game_m;
-    EnemyManager enemy_manager;
     public NavMeshAgent agent;
     public float health = 30f;
 
@@ -14,7 +13,6 @@ public class Target : MonoBehaviour {
     void Start()
     {
         game_m = GameObject.Find("GameManager").GetComponent<SpawnManager>();
-        enemy_manager = GameObject.Find("GameManager").GetComponent<EnemyManager>();
     }
 
     public void TakeDamage(float amount)
@@ -36,14 +34,14 @@ public class Target : MonoBehaviour {
             //Is an enemy
             Enemy soldier = gameObject.GetComponent<Enemy>();
             soldier.animator.SetBool("Die", true);
-            GameObject enemy = gameObject;
-            enemy_manager.enemies.Remove(enemy);
         }
         else
         {
             //Is a hostage
             Hostage_Script hostage = gameObject.GetComponent<Hostage_Script>();
             hostage.animator.SetBool("Hostage_Die", true);
+            GameObject hostages = gameObject;
+            game_m.Del_Hostages_Units(hostages);
         }
 
         yield return new WaitForSeconds(2.5f);
