@@ -75,6 +75,15 @@ public class SpawnManager : MonoBehaviour
         current_subwave = 0;
     }
 
+    public void CleanUpUnits()
+    {
+        for(int i = 0; i < current_wave.units.Count; i++)
+        {
+            Destroy(current_wave.units[i]);
+        }
+        current_wave.units.Clear();
+    }
+
     void SubWave()
     {
         if(current_subwave < current_wave.sub_waves)

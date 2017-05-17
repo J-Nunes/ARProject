@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     public SpawnManager spawn_manager;
     public Button button_start_game;
+    public Shoot player;
     [HideInInspector] public bool game;
 
     // Use this for initialization
@@ -20,6 +21,9 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (player.live < 0)
+            game = false;
+
         if(!game)
         {
             FinishGame();
@@ -29,9 +33,11 @@ public class GameManager : MonoBehaviour
     public void StartGame()
     {
         game = true;
+        spawn_manager.CleanUpUnits();
         spawn_manager.StartWaves();
         spawn_manager.enabled = true;
         button_start_game.gameObject.SetActive(false);
+        player.live = 100;
     }
 
     public void FinishGame()
