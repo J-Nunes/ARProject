@@ -21,6 +21,10 @@ public class Shoot : MonoBehaviour
 
     bool is_infinite_ammo = false;
 
+    public AudioClip shot;
+    public AudioClip reload;
+    public AudioSource audio_source;
+
     void Start()
     {
         currentAmmo = maxAmmo;
@@ -36,6 +40,7 @@ public class Shoot : MonoBehaviour
 
             if (currentAmmo <= 0 && is_infinite_ammo == false)
             {
+                audio_source.PlayOneShot(reload);
                 StartCoroutine(Reload());
                 return;
             }
@@ -43,6 +48,7 @@ public class Shoot : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && currentAmmo > 0)
             {
                 Shot();
+                audio_source.PlayOneShot(shot);
             }
 
             if (live <= 0)
