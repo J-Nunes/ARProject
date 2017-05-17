@@ -34,7 +34,6 @@ public class Hostage_Script : MonoBehaviour
 
             if (Vector3.Distance(transform.position, explosion_go.transform.position) <= 0.3f)
             {
-                Debug.Log("Hostage Bomb");
                 Target hostage_target = gameObject.GetComponent<Target>();
                 StartCoroutine(hostage_target.Die());
             }
@@ -45,8 +44,6 @@ public class Hostage_Script : MonoBehaviour
     {
         if(col.gameObject.name == "Bunker")
         {
-            Debug.Log("Hostage die");
-            
             GameObject del = gameObject;  
             Destroy(gameObject);
             game_m.Del_Hostages_Units(del);

@@ -32,7 +32,6 @@ public class EnemyManager : MonoBehaviour
             {
                 if (Vector3.Distance(enemy_go.destination, enemies[i].GetComponent<Transform>().position) <= 1f)
                 {
-                    Debug.Log("Same_pos");
                     enemy_go.CalcRandomPos();
                 }
             }

@@ -86,8 +86,6 @@ public class Shoot : MonoBehaviour
         Ray r = cam.ScreenPointToRay(transform.position);
         if (Physics.Raycast(r, out hit))
         {
-            Debug.Log(hit.transform.name);
-
             Target target = hit.transform.GetComponent<Target>();
             Explosion bomb = hit.transform.GetComponent<Explosion>();
             Enemy enemy = hit.transform.GetComponent<Enemy>();
@@ -99,7 +97,6 @@ public class Shoot : MonoBehaviour
 
             if (bomb != null)
             {
-                Debug.Log("Bomb");
                 bomb.Activate_Explosion();
                 //powerup_go.bomb_used = true;
             }

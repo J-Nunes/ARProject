@@ -85,7 +85,6 @@ public class Enemy : MonoBehaviour
             
             if (Vector3.Distance(position_enemy.position, explosion_go.transform.position) <= 0.3f)
             {
-                Debug.Log("Soldier Bomb");
                 Target enemy_target = gameObject.GetComponent<Target>();
                 StartCoroutine(enemy_target.Die());
             }
@@ -134,8 +133,6 @@ public class Enemy : MonoBehaviour
             if (Vector3.Distance(position_enemy.position, hostages_list[i].transform.position) <= 0.17f)
             {
                 hostages_must_die.Add(hostages_list[i]);
-                Debug.Log("HOSTAGE");
-                Debug.Log(hostages_must_die.Count);
             }
         }
 

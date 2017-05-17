@@ -65,13 +65,11 @@ public class Weapon : MonoBehaviour {
     IEnumerator Reload()
     {
         is_reloading = true;
-        Debug.Log("Reloading");
         animator.SetBool("Reloading", true);
 
         yield return new WaitForSeconds(reloadTime);
 
         currentAmmo = maxAmmo;
-        Debug.Log("Reloaded");
         is_reloading = false;
         animator.SetBool("Reloading", false);
     }
@@ -90,9 +88,6 @@ public class Weapon : MonoBehaviour {
 
         if (Physics.Raycast(fpsCam.transform.position, fpsCam.transform.forward, out hit, range))
         {
-
-            Debug.Log(hit.transform.name);
-
             Target target = hit.transform.GetComponent<Target>();
 
             if (target != null)

@@ -38,8 +38,6 @@ public class Power_Ups : MonoBehaviour {
 
         if (player_kills == 3 && infinite_ammo_used == false)
         {
-            Debug.Log("Ammo Power Activated");
-
             Color ammo = image_ammo.color;
             ammo.a = 1.0f;
             image_ammo.color = ammo;
@@ -50,8 +48,6 @@ public class Power_Ups : MonoBehaviour {
         }
         else if (player_kills == 5 && increase_life_used == false)
         {
-            Debug.Log("Increase Life");
-
             Color life = image_life.color;
             life.a = 1.0f;
             image_life.color = life;
@@ -88,8 +84,6 @@ public class Power_Ups : MonoBehaviour {
     {
         player_kills++;
         kill_list_ui.text = player_kills.ToString();
-        Debug.Log(" Kills");
-        Debug.Log(player_kills);
     }
 
     public void Reset_Kills()
@@ -101,8 +95,6 @@ public class Power_Ups : MonoBehaviour {
         infinite_ammo_used = false;
         //bomb_used = false;
         increase_life_used = false;
-        Debug.Log("Reset Kills");
-        Debug.Log(player_kills);
     }
 
     IEnumerator AmmoPowerUp()
@@ -110,7 +102,6 @@ public class Power_Ups : MonoBehaviour {
         player.InfiniteAmmo();
         yield return new WaitForSeconds(10f);
         player.NormalAmmo();
-        Debug.Log("Deactivate Ammo Power");
     }
 
 
