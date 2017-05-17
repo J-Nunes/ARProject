@@ -8,9 +8,11 @@ public class GameManager : MonoBehaviour
 {
     public SpawnManager spawn_manager;
     public Button button_start_game;
+    public Text text_amount_death_hostages;
     public Shoot player;
     public int hostages_can_die;
     public int death_hostages;
+    int hostages_die_before;
     [HideInInspector] public bool lose;
     [HideInInspector] public bool win;
 
@@ -21,6 +23,7 @@ public class GameManager : MonoBehaviour
         lose = false;
         win = false;
         death_hostages = 0;
+        hostages_die_before = 0;
     }
 
     // Update is called once per frame
@@ -34,6 +37,12 @@ public class GameManager : MonoBehaviour
 
         else if(lose)
             LoseGame();
+
+        if(hostages_die_before < death_hostages)
+        {
+            text_amount_death_hostages.text = death_hostages.ToString();
+            hostages_die_before = death_hostages;
+        }
     }
 
     public void StartGame()
@@ -46,6 +55,8 @@ public class GameManager : MonoBehaviour
         button_start_game.gameObject.SetActive(false);
         player.live = 100;
         death_hostages = 0;
+        text_amount_death_hostages.text = death_hostages.ToString();
+        hostages_die_before = death_hostages;
     }
 
     public void FinishGame(string message)
