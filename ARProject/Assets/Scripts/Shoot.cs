@@ -14,6 +14,7 @@ public class Shoot : MonoBehaviour
     public float reloadTime = 2f;
     public bool is_reloading = false;
 
+    public GameManager game_manager;
     public Time_Manager time_manager;
     public Camera cam;
     public Power_Ups powerup_go;
@@ -42,6 +43,9 @@ public class Shoot : MonoBehaviour
         {
             Shot();
         }
+
+        if (live < 0)
+            game_manager.lose = true;
 
     }
 

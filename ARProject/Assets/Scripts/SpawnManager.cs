@@ -62,7 +62,7 @@ public class SpawnManager : MonoBehaviour
                 current_subwave = 0;
             }
             else
-                game_manager.game = false;
+                game_manager.win = true;
         }
 	}
 
