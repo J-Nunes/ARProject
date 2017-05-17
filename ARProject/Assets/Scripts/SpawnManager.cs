@@ -84,6 +84,12 @@ public class SpawnManager : MonoBehaviour
             Destroy(current_wave.units[i]);
         }
         current_wave.units.Clear();
+
+        for (int i = 0; i < current_wave.hostages.Count; i++)
+        {
+            Destroy(current_wave.hostages[i]);
+        }
+        current_wave.hostages.Clear();
     }
 
     void SubWave()
