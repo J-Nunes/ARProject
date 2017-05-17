@@ -32,7 +32,7 @@ public class Hostage_Script : MonoBehaviour
         if (explosion_go.activate_bomb)
         {
 
-            if (Vector3.Distance(transform.position, explosion_go.transform.position) <= 0.6f)
+            if (Vector3.Distance(transform.position, explosion_go.transform.position) <= 0.3f)
             {
                 Debug.Log("Hostage Bomb");
                 Target hostage_target = gameObject.GetComponent<Target>();

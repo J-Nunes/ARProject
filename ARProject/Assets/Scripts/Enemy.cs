@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour
         if (explosion_go.activate_bomb)
         {
             
-            if (Vector3.Distance(position_enemy.position, explosion_go.transform.position) <= 0.5f)
+            if (Vector3.Distance(position_enemy.position, explosion_go.transform.position) <= 0.3f)
             {
                 Debug.Log("Soldier Bomb");
                 Target enemy_target = gameObject.GetComponent<Target>();
@@ -114,7 +114,7 @@ public class Enemy : MonoBehaviour
         List<GameObject> hostages_must_die = new List<GameObject>();  
         for (int i = 0; i < hostages_list.Count; i++)
         {
-            if (Vector3.Distance(position_enemy.position, hostages_list[i].transform.position) <= 0.35f)
+            if (Vector3.Distance(position_enemy.position, hostages_list[i].transform.position) <= 0.17f)
             {
                 hostages_must_die.Add(hostages_list[i]);
                 Debug.Log("HOSTAGE");
