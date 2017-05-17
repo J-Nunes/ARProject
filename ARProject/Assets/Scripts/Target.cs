@@ -5,14 +5,16 @@ using UnityEngine.AI;
 
 public class Target : MonoBehaviour {
 
-    SpawnManager game_m;
+    SpawnManager spawn_manager;
+    GameManager game_manager;
     public NavMeshAgent agent;
     public float health = 30f;
 
     // Use this for initialization
     void Start()
     {
-        game_m = GameObject.Find("GameManager").GetComponent<SpawnManager>();
+        spawn_manager = GameObject.Find("GameManager").GetComponent<SpawnManager>();
+        game_manager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     public void TakeDamage(float amount)
@@ -50,15 +52,16 @@ public class Target : MonoBehaviour {
             //Delete an enemy
             Destroy(gameObject);
             GameObject del = gameObject;
-            game_m.RemoveUnit(del);
+            spawn_manager.RemoveUnit(del);
         }
         else
         {
             //Delete a hostage
             Destroy(gameObject);
             GameObject hostages = gameObject;
-            game_m.Del_Hostages_Units(hostages);
-            game_m.RemoveUnit(hostages);
+            spawn_manager.Del_Hostages_Units(hostages);
+            spawn_manager.RemoveUnit(hostages);
+            game_manager.death_hostages++;
         }
 
         

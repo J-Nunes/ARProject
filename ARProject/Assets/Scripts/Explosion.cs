@@ -8,28 +8,33 @@ public class Explosion : MonoBehaviour {
     public Renderer render_mesh;
     public Collider col;
     public ParticleSystem explsion_effect;
+    public SpawnManager spawn_manager;
     
 
 	// Use this for initialization
 	void Start ()
     {
-        render_mesh.enabled = false;
-        col.enabled = false;
+        
     }
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+    {
 		
         if(activate_bomb)
         {    
             StartCoroutine(Explode());        
         }
+
+        if(!spawn_manager.enabled)
+        {
+            render_mesh.enabled = false;
+            col.enabled = false;
+        }
 	}
 
     IEnumerator Explode()
     {
-        Debug.Log("EXPLOSION");
-        Debug.Log(explsion_effect);
         render_mesh.enabled = true;
         explsion_effect.Play();
         yield return new WaitForSeconds(0.1f);
