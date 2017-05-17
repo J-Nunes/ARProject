@@ -30,6 +30,8 @@ public class SpawnManager : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        Debug.Log("UNIDADES VIVAS");
+        Debug.Log(current_wave.units.Count);
         if (spawning)
         {
             if (wave_starting)
@@ -110,7 +112,7 @@ public class SpawnManager : MonoBehaviour
         
         for (int i = 0; i < current_wave.initial_hostages; i++)
             Spawn(2);
-
+       
         wave_starting = false;
     }
 

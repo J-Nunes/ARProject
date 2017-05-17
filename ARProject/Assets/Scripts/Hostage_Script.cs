@@ -49,6 +49,7 @@ public class Hostage_Script : MonoBehaviour
             
             GameObject del = gameObject;  
             Destroy(gameObject);
+            game_m.Del_Hostages_Units(del);
             game_m.RemoveUnit(del);
 
         }

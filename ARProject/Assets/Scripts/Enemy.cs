@@ -109,21 +109,22 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(time);
 
         List<GameObject> hostages_list = spawner.Get_Hostages_Units();
-        if (hostages_list.Count > 0)
+        List<GameObject> hostages_must_die = new List<GameObject>();  
+        for (int i = 0; i < hostages_list.Count; i++)
         {
-            for (int i = 0; i < hostages_list.Count; i++)
+            if (Vector3.Distance(position_enemy.position, hostages_list[i].transform.position) <= 0.35f)
             {
-                if (Vector3.Distance(position_enemy.position, hostages_list[i].transform.position) <= 0.35f)
-                {
-                    Target target = hostages_list[i].GetComponent<Target>();
-                    target.health = 0;
-                }
+                hostages_must_die.Add(hostages_list[i]);
+                Debug.Log("HOSTAGE");
+                Debug.Log(hostages_must_die.Count);
             }
         }
 
-        //Die
-        Target die = gameObject.GetComponent<Target>();
-        StartCoroutine(die.Die());
-
+        for (int i = 0; i < hostages_must_die.Count; i++)
+        {
+            Target target = hostages_must_die[i].GetComponent<Target>();
+            StartCoroutine(target.Die());
+        }
+        hostages_must_die.Clear();
     }
 }
