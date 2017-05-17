@@ -70,7 +70,7 @@ public class Power_Ups : MonoBehaviour {
             time_manager.SlowMotion();
             slow_motion_used = true;
         }
-        else if (player_kills == 10 && bomb_used == false)
+        else if (player_kills == 10 /*&& bomb_used == false*/)
         {
             Color barrel = image_explosion.color;
             barrel.a = 0.5f;
@@ -99,7 +99,7 @@ public class Power_Ups : MonoBehaviour {
         Decrease_Alpha();
         slow_motion_used = false;
         infinite_ammo_used = false;
-        bomb_used = false;
+        //bomb_used = false;
         increase_life_used = false;
         Debug.Log("Reset Kills");
         Debug.Log(player_kills);

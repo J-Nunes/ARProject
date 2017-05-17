@@ -23,6 +23,8 @@ public class GameManager : MonoBehaviour
     public AudioSource jingle_source;
     public AudioSource music_source;
 
+    public Power_Ups power_up;
+
     // Use this for initialization
     void Start()
     {
@@ -73,7 +75,8 @@ public class GameManager : MonoBehaviour
         player.currentAmmo = player.maxAmmo;
         death_hostages = 0;
         text_amount_death_hostages.text = death_hostages.ToString();
-        hostages_die_before = death_hostages;        
+        hostages_die_before = death_hostages;
+        power_up.Reset_Kills();
     }
 
     public void FinishGame(string message)

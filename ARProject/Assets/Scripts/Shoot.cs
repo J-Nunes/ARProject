@@ -101,7 +101,7 @@ public class Shoot : MonoBehaviour
             {
                 Debug.Log("Bomb");
                 bomb.Activate_Explosion();
-                powerup_go.bomb_used = true;
+                //powerup_go.bomb_used = true;
             }
 
             if (enemy != null)
