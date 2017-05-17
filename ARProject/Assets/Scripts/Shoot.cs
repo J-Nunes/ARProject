@@ -44,7 +44,7 @@ public class Shoot : MonoBehaviour
             Shot();
         }
 
-        if (live < 0)
+        if (live <= 0)
             game_manager.lose = true;
 
     }

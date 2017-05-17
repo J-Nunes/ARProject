@@ -62,7 +62,10 @@ public class Enemy : MonoBehaviour
             Vector3 target_pos = camera.position;
             target_pos.y = position_enemy.position.y;
             position_enemy.LookAt(target_pos);
-            player.live -= damage * Time.deltaTime;
+            if (player.live > 0)
+                player.live -= damage * Time.deltaTime;
+            else
+                player.live = 0;
         }
 
         if (explosion_go.activate_bomb)
