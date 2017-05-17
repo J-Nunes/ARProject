@@ -9,12 +9,16 @@ public class Target : MonoBehaviour {
     GameManager game_manager;
     public NavMeshAgent agent;
     public float health = 30f;
+    
+    public AudioClip death;
+    public AudioSource audio_source;
 
     // Use this for initialization
     void Start()
     {
         spawn_manager = GameObject.Find("GameManager").GetComponent<SpawnManager>();
         game_manager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        audio_source.PlayOneShot(death);
     }
 
     public void TakeDamage(float amount)
@@ -22,6 +26,7 @@ public class Target : MonoBehaviour {
         health -= amount;
         if(health <= 0f)
         {
+            audio_source.PlayOneShot(death);
             StartCoroutine(Die());
         }
     }
