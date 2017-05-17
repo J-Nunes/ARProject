@@ -11,11 +11,10 @@ public class Explosion : MonoBehaviour {
     
 
 	// Use this for initialization
-	void Start () {
-
-        render_mesh = GetComponent<Renderer>();
-        col = GetComponent<Collider>();
-        
+	void Start ()
+    {
+        render_mesh.enabled = false;
+        col.enabled = false;
     }
 	
 	// Update is called once per frame
@@ -25,16 +24,12 @@ public class Explosion : MonoBehaviour {
         {    
             StartCoroutine(Explode());        
         }
-        else
-        {
-            render_mesh.enabled = false;
-            col.enabled = false;
-        }
 	}
 
     IEnumerator Explode()
     {
-
+        Debug.Log("EXPLOSION");
+        Debug.Log(explsion_effect);
         render_mesh.enabled = true;
         explsion_effect.Play();
         yield return new WaitForSeconds(0.1f);

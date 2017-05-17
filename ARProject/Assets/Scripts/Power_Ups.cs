@@ -20,14 +20,13 @@ public class Power_Ups : MonoBehaviour {
     }
 	
 	// Update is called once per frame
-	void Update () {
-
+	void Update ()
+    {
         if (player_kills == 1 && bomb_used == false)
         {
             Explosion bomb = explosion.GetComponent<Explosion>();
             bomb.col.enabled = true;
-            bomb.render_mesh.enabled = true;
-            
+            bomb.render_mesh.enabled = true;            
         }
 
         else if (player_kills == 4 && infinite_ammo_used == false)
