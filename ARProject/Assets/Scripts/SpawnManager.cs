@@ -12,7 +12,7 @@ public class SpawnManager : MonoBehaviour
     public Transform bunker;
 
     public List<WavesResources> waves;
-    WavesResources current_wave;
+    public WavesResources current_wave;
     bool wave_starting;
     bool spawning;
     float timer;
