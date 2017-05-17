@@ -28,6 +28,7 @@ public class Enemy : MonoBehaviour
 
     //Bomb
     Explosion explosion_go;
+    public ParticleSystem explosion_effect;
 
     public SpawnManager spawner;
 
@@ -38,6 +39,7 @@ public class Enemy : MonoBehaviour
         player = GameObject.Find("Crosshair").GetComponent<Shoot>();
         explosion_go = GameObject.Find("Bomb").GetComponent<Explosion>();
         spawner = GameObject.Find("GameManager").GetComponent<SpawnManager>();
+        explosion_effect = GameObject.Find("EnemyExplosionEffect").GetComponent<ParticleSystem>();       
     }
 
     // Use this for initialization
@@ -130,6 +132,8 @@ public class Enemy : MonoBehaviour
 
         //Die
         Target die = gameObject.GetComponent<Target>();
+        explosion_effect.transform.position = transform.position;
+        explosion_effect.Play();
         StartCoroutine(die.Die());
 
     }
