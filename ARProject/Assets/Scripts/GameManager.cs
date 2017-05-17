@@ -15,6 +15,13 @@ public class GameManager : MonoBehaviour
     int hostages_die_before;
     [HideInInspector] public bool lose;
     [HideInInspector] public bool win;
+    bool waiting_to_start;
+
+    public AudioClip win_jingle;
+    public AudioClip lose_jingle;
+    public AudioClip music;
+    public AudioSource jingle_source;
+    public AudioSource music_source;
 
     // Use this for initialization
     void Start()
@@ -22,8 +29,11 @@ public class GameManager : MonoBehaviour
         spawn_manager.enabled = false;
         lose = false;
         win = false;
+        waiting_to_start = true;
         death_hostages = 0;
         hostages_die_before = 0;
+
+        music_source.clip = music;
     }
 
     // Update is called once per frame
@@ -32,11 +42,14 @@ public class GameManager : MonoBehaviour
         if(death_hostages >= hostages_can_die)
             lose = true;
 
-        if(win)
-            WinGame();
+        if (!waiting_to_start)
+        {
+            if (win)
+                WinGame();
 
-        else if(lose)
-            LoseGame();
+            else if (lose)
+                LoseGame();
+        }
 
         if(hostages_die_before < death_hostages)
         {
@@ -47,8 +60,11 @@ public class GameManager : MonoBehaviour
 
     public void StartGame()
     {
+        music_source.Stop();
+        music_source.Play();
         win = false;
         lose = false;
+        waiting_to_start = false;
         spawn_manager.CleanUpUnits();
         spawn_manager.StartWaves();
         spawn_manager.enabled = true;
@@ -62,6 +78,8 @@ public class GameManager : MonoBehaviour
 
     public void FinishGame(string message)
     {
+        waiting_to_start = true;
+        music_source.volume = 0.2f;
         spawn_manager.enabled = false;
         button_start_game.GetComponentInChildren<Text>().text = message;
         button_start_game.gameObject.SetActive(true);        
@@ -70,10 +88,13 @@ public class GameManager : MonoBehaviour
     void WinGame()
     {
         FinishGame("You win");
+        jingle_source.PlayOneShot(win_jingle);
     }
 
     void LoseGame()
     {
         FinishGame("You Lose");
+        jingle_source.PlayOneShot(lose_jingle);
+        
     }
 }
