@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour
 
     public NavMeshAgent agent;
     public Vector3 destination;
+    bool shooting;
 
     // GameManager g_manager;
     public float radius_attack_pos;
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour
     Explosion explosion_go;
     public ParticleSystem explosion_effect;
     public AudioClip explosion;
+    public AudioClip shoot_loop;
     public AudioSource audio_source;
 
     public SpawnManager spawner;
@@ -49,6 +51,7 @@ public class Enemy : MonoBehaviour
     {
         //After the respawn of the character, this goes to the attack position
         CalcRandomPos();
+        shooting = false;
     }
 
     // Update is called once per frame
@@ -57,6 +60,13 @@ public class Enemy : MonoBehaviour
         //When the soldier arrive to the attack position
         if (Vector3.Distance(position_enemy.position, destination) <= 0.05f)
         {
+            if (!shooting)
+            {
+                audio_source.loop = true;
+                audio_source.clip = shoot_loop;
+                audio_source.Play();
+            }
+            shooting = true;
             animator.SetBool("Run", false);
             
             animator.SetBool("Shoot Player", true);
@@ -81,6 +91,8 @@ public class Enemy : MonoBehaviour
             }
         }
 
+        if (!spawner.enabled)
+            audio_source.Stop();
     }
 
     public void CalcRandomPos()

@@ -18,7 +18,6 @@ public class Target : MonoBehaviour {
     {
         spawn_manager = GameObject.Find("GameManager").GetComponent<SpawnManager>();
         game_manager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        audio_source.PlayOneShot(death);
     }
 
     public void TakeDamage(float amount)
