@@ -20,6 +20,8 @@ public class Power_Ups : MonoBehaviour {
     public Image image_slowmotion;
     public Image image_explosion;
 
+    public Text kill_list_ui;
+
     // Use this for initialization
     void Start () {
         player_kills = 0;
@@ -85,6 +87,7 @@ public class Power_Ups : MonoBehaviour {
     public void Increase_kills()
     {
         player_kills++;
+        kill_list_ui.text = player_kills.ToString();
         Debug.Log(" Kills");
         Debug.Log(player_kills);
     }
@@ -92,6 +95,7 @@ public class Power_Ups : MonoBehaviour {
     public void Reset_Kills()
     {
         player_kills = 0;
+        kill_list_ui.text = player_kills.ToString();
         Decrease_Alpha();
         slow_motion_used = false;
         infinite_ammo_used = false;
