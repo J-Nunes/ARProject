@@ -54,9 +54,10 @@ public class GameManager : MonoBehaviour
         spawn_manager.enabled = true;
         button_start_game.gameObject.SetActive(false);
         player.live = 100;
+        player.currentAmmo = player.maxAmmo;
         death_hostages = 0;
         text_amount_death_hostages.text = death_hostages.ToString();
-        hostages_die_before = death_hostages;
+        hostages_die_before = death_hostages;        
     }
 
     public void FinishGame(string message)

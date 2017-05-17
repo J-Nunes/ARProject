@@ -10,7 +10,7 @@ public class Shoot : MonoBehaviour
     public float range = 400f;
 
     public int maxAmmo = 10;
-    private int currentAmmo;
+    public int currentAmmo;
     public float reloadTime = 2f;
     public bool is_reloading = false;
 
@@ -29,23 +29,25 @@ public class Shoot : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (is_reloading)
-            return;
-
-        if (currentAmmo <= 0 && is_infinite_ammo == false)
+        if (game_manager.spawn_manager.enabled)
         {
-            StartCoroutine(Reload());
-            return;
-        }
+            if (is_reloading)
+                return;
 
-        if (Input.GetMouseButtonDown(0) && currentAmmo > 0)
-        {
-            Shot();
-        }
+            if (currentAmmo <= 0 && is_infinite_ammo == false)
+            {
+                StartCoroutine(Reload());
+                return;
+            }
 
-        if (live <= 0)
-            game_manager.lose = true;
+            if (Input.GetMouseButtonDown(0) && currentAmmo > 0)
+            {
+                Shot();
+            }
+
+            if (live <= 0)
+                game_manager.lose = true;
+        }
 
     }
 
@@ -68,7 +70,6 @@ public class Shoot : MonoBehaviour
 
     void Shot()
     {
-
         if (is_infinite_ammo == false)
         {
             currentAmmo--;
