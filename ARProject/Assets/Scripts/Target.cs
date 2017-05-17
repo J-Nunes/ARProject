@@ -33,24 +33,39 @@ public class Target : MonoBehaviour {
         {
             //Is an enemy
             Enemy soldier = gameObject.GetComponent<Enemy>();
-            soldier.animator.SetBool("Die", true);
-            Destroy(gameObject);
-            GameObject del = gameObject;
-            game_m.RemoveUnit(del);
+            soldier.animator.SetBool("Die", true);      
         }
         else
         {
             //Is a hostage
             Hostage_Script hostage = gameObject.GetComponent<Hostage_Script>();
             hostage.animator.SetBool("Hostage_Die", true);
+        }
+
+        yield return new WaitForSeconds(2.5f);
+
+        //Check if is an enemy or a hostage
+        if (gameObject.GetComponent<Enemy>() != null)
+        {
+            //Delete an enemy
+            Destroy(gameObject);
+            GameObject del = gameObject;
+            game_m.RemoveUnit(del);
+        }
+        else
+        {
+            //Delete a hostage
             Destroy(gameObject);
             GameObject hostages = gameObject;
             game_m.Del_Hostages_Units(hostages);
             game_m.RemoveUnit(hostages);
         }
 
-        yield return new WaitForSeconds(2.5f);
-           
+        
+    
+
+        
+
     }
 
 }

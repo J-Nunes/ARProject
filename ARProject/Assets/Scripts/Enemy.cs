@@ -112,7 +112,7 @@ public class Enemy : MonoBehaviour
         List<GameObject> hostages_must_die = new List<GameObject>();  
         for (int i = 0; i < hostages_list.Count; i++)
         {
-            if (Vector3.Distance(position_enemy.position, hostages_list[i].transform.position) <= 0.35f)
+            if (Vector3.Distance(position_enemy.position, hostages_list[i].transform.position) <= 0.f)
             {
                 hostages_must_die.Add(hostages_list[i]);
                 Debug.Log("HOSTAGE");
@@ -125,6 +125,12 @@ public class Enemy : MonoBehaviour
             Target target = hostages_must_die[i].GetComponent<Target>();
             StartCoroutine(target.Die());
         }
+
         hostages_must_die.Clear();
+
+        //Die
+        Target die = gameObject.GetComponent<Target>();
+        StartCoroutine(die.Die());
+
     }
 }
